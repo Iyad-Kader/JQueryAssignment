@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jqPractice</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script>
+    /*
+    * 1 - Genrate random number 
+    * 2- 
+    */
+    var mainRandNumber = 0;
+    var TotalofSummition = 0;
+    $(function () { // ready function 
+      mainRandNumber = GenrateRandomNumber(10);
+      DisplayMain();
+      BtnClickHandler();
+      Reset();
+    });
+
+    function DisplayMain() {
+      $("#MainTarget").html(mainRandNumber);
+    }
+
+    // generate random numbers 
+    function GenrateRandomNumber(max) {
+      var number = Math.floor(Math.random() * max + 1);
+      return number;
+    }
+
+    function BtnClickHandler() {
+      $(".btn").click(function () {
+        var generatedNumber = GenrateRandomNumber(3);
+        console.log('generatedNumber');
+        console.log(generatedNumber);
+        TotalofSummition += generatedNumber;
+        console.log(TotalofSummition);
+        ShowTotalValue();
+        ValidateValues();
+      });
+
+    }
+
+    function ValidateValues() {
+      // compare the values 
+      // if the main number is lower than the sum the player lose 
+      //if the main number = then the player win 
+      if (mainRandNumber == TotalofSummition) {
+        //alert('winner');
+        $("body").css('background-color', 'green');
+        btnDisabled();
+      }
+      else if (mainRandNumber < TotalofSummition) {
+        //alert('Loser');
+        $("body").css('background-color', 'red');
+        btnDisabled();
+      }
+
+    }
+
+    function ShowTotalValue() {
+      $("#Incrementedvalues").html(TotalofSummition);
+    }
+
+
+
+    function Reset() {
+      $("#btnReset").click(function () {
+        location.reload();
+      });
+
+    }
+
+    function btnDisabled() {
+      $(".btn").attr("disabled", "disabled");
+    }
+
+
+
+
+
+  </script>
+</head>
+
+<body>
+  Random Number
+  <p id="MainTarget"></p>
+  Total Values :
+  <p id="Incrementedvalues"></p>
+  <input type="button" value="A" class="btn" />
+  <input type="button" value="B" class="btn" />
+  <input type="button" value="C" class="btn" />
+  <input type="button" value="D" class="btn" />
+  <br/>
+  <input type="button" value="Reset" id="btnReset" />
+
+
+
+</body>
+
+</html>
